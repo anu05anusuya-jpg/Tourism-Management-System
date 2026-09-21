@@ -1,0 +1,141 @@
+//constructor(class name=constructor name)
+/*class Student{
+    String name;
+    int age;
+
+    Student(){
+        name="Anu";
+        age=20;
+    }
+
+    void display(){
+        System.out.println("Name:"+name);
+        System.out.println("Age:"+age);
+    }
+}
+
+public class Main {
+    static void main(String[]args) {
+        Student student=new Student();
+        student.display();
+    }
+}
+*/
+//Parametrized Constructor
+*class Student{
+    String name;
+    int age;
+    //parametrized constructor(we use parameters in a constructor to receive values when creating an object)
+
+    Student(String name,int age){
+        this.name="name";
+        this.age=age;
+    }
+
+    void display(){
+        System.out.println("Name:"+name);
+        System.out.println("Age:"+age);
+    }
+}
+
+public class Main {
+    static void main(String[]args) {
+        Student student=new Student("Anu",20);
+        student.display();
+    }
+}
+
+ */
+ //copy constructor
+/*class Student{
+    String name;
+    int age;
+    //parametrized constructor(we use parameters in a constructor to receive values when creating an object)
+    Student(String name,int age){
+        this.name=name;
+        this.age=age;
+    }
+    //copy constructor(used for creating a new obj by copying the valuse of existing obj)
+    Student(Student s){
+        this.name=s.name;
+        this.age=s.age;
+    }
+
+    void display(){
+        System.out.println("Name:"+name);
+        System.out.println("Age:"+age);
+    }
+}
+
+public class Main {
+    static void main(String[]args) {
+
+        Student s1=new Student("Anu",20);
+        System.out.println("Frist Student");
+        s1.display();
+
+
+        Student s2=new Student("Anu",20);
+        System.out.println("\nSecond Student");
+        s2.display();
+    }
+}
+*/
+/*
+//Private constructor
+class Student(){
+    private Student(){
+System.out.println("Constructor Called");
+}
+class Main{
+    static void main() {
+        Student s = new Student():
+    }
+*/
+/*
+//constructure overloading
+
+    class Student {
+    String name;
+    int age;
+
+    // Constructor 1
+    Student() {
+        name = "Unknown";
+        age = 0;
+    }
+
+    // Constructor 2
+    Student(String name) {
+        this.name = name;
+        age = 0;
+    }
+
+    // Constructor 3
+    Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    void display() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Student s1 = new Student();
+        Student s2 = new Student("Anu");
+        Student s3 = new Student("Anu", 20);
+
+        s1.display();
+        s2.display();
+        s3.display();
+    }
+}
+
+
+ */
+
