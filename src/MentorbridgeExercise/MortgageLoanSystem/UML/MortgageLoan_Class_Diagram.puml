@@ -1,0 +1,160 @@
+@startuml
+
+title Mortgage Loan Application System - UML Class Diagram
+
+interface LoanVerification {
+    +verify() : void
+    +showVerificationMessage() : void
+}
+
+class Customer {
+    -customerId : String
+    -name : String
+    -phone : String
+    -email : String
+    -age : int
+
+    +Customer(...)
+    +getCustomerId() : String
+    +getName() : String
+    +getPhone() : String
+    +getEmail() : String
+    +getAge() : int
+    +displayCustomerDetails() : void
+}
+
+class Employment {
+    -companyName : String
+    -employmentType : String
+    -monthlyIncome : double
+    -experience : int
+
+    +Employment(...)
+    +getCompanyName() : String
+    +getEmploymentType() : String
+    +getMonthlyIncome() : double
+    +getExperience() : int
+    +verify() : void
+    +displayEmploymentDetails() : void
+}
+
+class Property {
+    -propertyId : String
+    -address : String
+    -propertyType : String
+    -propertyValue : double
+
+    +Property(...)
+    +getPropertyId() : String
+    +getAddress() : String
+    +getPropertyType() : String
+    +getPropertyValue() : double
+    +verify() : void
+    +displayPropertyDetails() : void
+}
+
+class CreditCheck {
+    -creditScore : int
+
+    +CreditCheck(...)
+    +getCreditScore() : int
+    +verify() : void
+    +displayCreditDetails() : void
+}
+
+abstract class MortgageLoan {
+    -loanAmount : double
+    -loanYears : int
+
+    +MortgageLoan(...)
+    +getLoanAmount() : double
+    +getLoanYears() : int
+    {abstract} +getAnnualInterestRate() : double
+    +displayLoanDetails() : void
+    +calculateEMI() : double
+    +calculateEMI(insurance : boolean) : double
+    {static} +getLoanCategory() : String
+}
+
+class HomeLoan {
+    +HomeLoan(...)
+    +getAnnualInterestRate() : double
+}
+
+class CommercialLoan {
+    +CommercialLoan(...)
+    +getAnnualInterestRate() : double
+}
+
+class EligibilityResult {
+    -incomePassed : boolean
+    -creditPassed : boolean
+    -propertyPassed : boolean
+    -eligible : boolean
+
+    +EligibilityResult(...)
+    +isEligible() : boolean
+    +displayResult() : void
+}
+
+enum LoanStatus {
+    SUBMITTED
+    UNDER_REVIEW
+    APPROVED
+    REJECTED
+    PROCESSING
+}
+
+class LoanApplication {
+    -applicationId : String
+    -applicationDate : LocalDate
+    -status : LoanStatus
+    -customer : Customer
+    -employment : Employment
+    -property : Property
+    -creditCheck : CreditCheck
+    -loan : MortgageLoan
+
+    +LoanApplication(...)
+    +getApplicationId() : String
+    +getApplicationDate() : LocalDate
+    +getCustomer() : Customer
+    +getEmployment() : Employment
+    +getProperty() : Property
+    +getCreditCheck() : CreditCheck
+    +getLoan() : MortgageLoan
+    +getStatus() : LoanStatus
+    +setStatus(status : LoanStatus) : void
+    +checkEligibility() : EligibilityResult
+    +displayApplicationDetails() : void
+}
+
+class LoanProcessor {
+    +processApplication(application : LoanApplication) : void
+}
+
+class MortgageLoanApplication {
+    {static} +main(args : String[]) : void
+}
+
+LoanVerification <|.. Employment
+LoanVerification <|.. Property
+LoanVerification <|.. CreditCheck
+
+MortgageLoan <|-- HomeLoan
+MortgageLoan <|-- CommercialLoan
+
+LoanApplication --> Customer : HAS-A
+LoanApplication --> Employment : HAS-A
+LoanApplication --> Property : HAS-A
+LoanApplication --> CreditCheck : HAS-A
+LoanApplication --> MortgageLoan : HAS-A
+
+LoanApplication --> LoanStatus
+LoanApplication --> EligibilityResult
+
+LoanProcessor --> LoanApplication
+MortgageLoanApplication --> LoanApplication
+MortgageLoanApplication --> LoanProcessor
+
+@enduml

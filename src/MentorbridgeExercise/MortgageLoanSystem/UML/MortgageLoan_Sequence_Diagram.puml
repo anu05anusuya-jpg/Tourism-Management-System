@@ -1,0 +1,75 @@
+@startuml
+
+title Mortgage Loan Application System - UML Sequence Diagram
+
+actor User
+
+participant "MortgageLoanApplication" as App
+participant "Customer" as Customer
+participant "Employment" as Employment
+participant "CreditCheck" as Credit
+participant "Property" as Property
+participant "MortgageLoan" as Loan
+participant "LoanApplication" as LoanApp
+participant "LoanProcessor" as Processor
+participant "EligibilityResult" as Result
+
+User -> App : Enter application details
+
+App -> Customer : Create Customer
+Customer --> App : Customer created
+
+App -> Employment : Create Employment
+Employment --> App : Employment created
+
+App -> Property : Create Property
+Property --> App : Property created
+
+App -> Credit : Create CreditCheck
+Credit --> App : CreditCheck created
+
+App -> Loan : Create HomeLoan / CommercialLoan
+Loan --> App : Loan created
+
+App -> LoanApp : Create LoanApplication
+LoanApp --> App : Application created
+
+App -> Processor : processApplication()
+
+Processor -> LoanApp : setStatus(UNDER_REVIEW)
+
+Processor -> Employment : verify()
+Employment --> Processor : Verification result
+
+Processor -> Credit : verify()
+Credit --> Processor : Verification result
+
+Processor -> Property : verify()
+Property --> Processor : Verification result
+
+Processor -> LoanApp : checkEligibility()
+
+LoanApp -> Result : Create EligibilityResult
+Result --> LoanApp : Eligibility result
+
+alt Eligible
+
+    Processor -> Loan : calculateEMI()
+    Loan --> Processor : Monthly EMI
+
+    Processor -> LoanApp : setStatus(APPROVED)
+    Processor -> LoanApp : setStatus(PROCESSING)
+
+    Processor --> App : Loan processing started
+
+else Not Eligible
+
+    Processor -> LoanApp : setStatus(REJECTED)
+
+    Processor --> App : Loan application rejected
+
+end
+
+App --> User : Display final application status
+
+@enduml
